@@ -23,7 +23,7 @@
         android:textStyle="bold"
         tools:text="Bonjour [ prénom], quel type de cours cherchez-vous aujourd’hui ?" />
 
-    <com.bravedroid.sugar.PrimaryCategoriesCarousel
+    <com.bravedroid.sugar.categories.PrimaryCategoryCarousel
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

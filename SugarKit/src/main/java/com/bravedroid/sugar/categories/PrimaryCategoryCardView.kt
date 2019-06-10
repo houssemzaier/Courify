@@ -1,4 +1,4 @@
-package com.bravedroid.sugar
+package com.bravedroid.sugar.categories
 
 import android.content.Context
 import android.graphics.Color
@@ -8,13 +8,17 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.TextView
+import com.bravedroid.sugar.R
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.card.MaterialCardView
 
 
-class CategoryCardView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
-    MaterialCardView(context, attrs) {
+class PrimaryCategoryCardView
+@JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null
+) : MaterialCardView(context, attrs) {
     init {
         LayoutInflater.from(context).inflate(R.layout.layout_primary_category_card_view, this)
         val width = resources.getDimension(R.dimen.category_card_width).toInt()
@@ -27,13 +31,14 @@ class CategoryCardView @JvmOverloads constructor(context: Context, attrs: Attrib
         val imageThumbnail = findViewById<ImageView>(R.id.thumbnail)
         // OK//   imageThumbnail.setImageDrawable(resources.getDrawable(R.drawable.box_categoriedu_jour, null))
 
-        val attributes = context.obtainStyledAttributes(attrs, R.styleable.CategoryCardView)
-        val imageUrl = attributes.getString(R.styleable.CategoryCardView_imageUrl)
-        val titleText = attributes.getString(R.styleable.CategoryCardView_titleText)
+        val attributes = context.obtainStyledAttributes(attrs,
+            R.styleable.PrimaryCategoryCardView
+        )
+        val imageUrl = attributes.getString(R.styleable.PrimaryCategoryCardView_imageUrl)
+        val titleText = attributes.getString(R.styleable.PrimaryCategoryCardView_titleText)
         attributes.recycle()
 
         Glide.with(context)
-            //.load(R.drawable.box_categoriedu_jour)
             .load(
                 imageUrl ?: "https://s3-media1.fl.yelpcdn.com/bphoto/zSa_TYUZbsisSxLYkNEJuQ/l.jpg"
             )

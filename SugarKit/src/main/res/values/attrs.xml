@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
  <resources>
-<declare-styleable name="CategoryCardView">
+<declare-styleable name="PrimaryCategoryCardView">
     <attr name="imageUrl" format="string"/>
     <attr name="titleText" format="string"/>
 </declare-styleable>
