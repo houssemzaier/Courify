@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".advertisements.AdvertisementsFragment">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="20dp"
+
+    android:orientation="vertical"
+    tools:context=".advertisements.AdvertisementsFragment">
 
     <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="adver"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="sans-serif"
+        android:lineSpacingExtra="6sp"
+        android:text="Bonjour [ prenom], quel type de cours cherchez-vous aujourd hui ?"
+        android:textColor="#31313c"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:text="Bonjour [ prénom], quel type de cours cherchez-vous aujourd’hui ?" />
 
-</FrameLayout>
+    <com.bravedroid.sugar.PrimaryCategoriesCarousel
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

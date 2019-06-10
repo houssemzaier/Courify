@@ -3,4 +3,5 @@
     <dimen name="category_card_width">160dp</dimen>
     <dimen name="category_card_height">80dp</dimen>
     <dimen name="category_card_radius">4dp</dimen>
+    <dimen name="primary_categories_margin">16dp</dimen>
 </resources>
