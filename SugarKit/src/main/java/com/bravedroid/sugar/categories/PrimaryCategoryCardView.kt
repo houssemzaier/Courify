@@ -28,7 +28,7 @@ class PrimaryCategoryCardView
         radius = resources.getDimension(R.dimen.category_card_radius)
 
 
-        val imageThumbnail = findViewById<ImageView>(R.id.thumbnail)
+        val imageThumbnail = findViewById<ImageView>(R.id.category_thumbnail)
         // OK//   imageThumbnail.setImageDrawable(resources.getDrawable(R.drawable.box_categoriedu_jour, null))
 
         val attributes = context.obtainStyledAttributes(attrs,
@@ -52,6 +52,6 @@ class PrimaryCategoryCardView
             )
             .into(imageThumbnail)
 
-        findViewById<TextView>(R.id.item_title).text = titleText ?: "Title".toUpperCase()
+        findViewById<TextView>(R.id.category_title).text = titleText ?: "Title".toUpperCase()
     }
 }

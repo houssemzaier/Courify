@@ -7,11 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bravedroid.sugar.R
+import com.google.android.material.card.MaterialCardView
 import java.lang.IllegalStateException
 
 private const val LAST_ITEM_TYPE = 0
@@ -38,19 +42,19 @@ class PrimaryCategoryCarousel @JvmOverloads constructor(
         primaryCategoryItems: List<PrimaryCategoryItem>,
         onSeeMoreClicked: (() -> Unit)? = null
     ) {
-        categoriesAdapter.submitList(primaryCategoryItems)
+        categoriesAdapter.submitList(primaryCategoryItems.toMutableList())
         categoriesAdapter.onSeeMoreClicked = onSeeMoreClicked
     }
 }
 
 
 private class PrimaryCategoriesAdapter :
-    ListAdapter<PrimaryCategoryItem, PrimaryCategoriesAdapter.ViewHolder>(
+    ListAdapter<PrimaryCategoryItem, RecyclerView.ViewHolder>(
         ItemDiff
     ) {
     var onSeeMoreClicked: (() -> Unit)? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             LAST_ITEM_TYPE -> {
                 val imageView = LayoutInflater.from(parent.context)
@@ -67,11 +71,11 @@ private class PrimaryCategoriesAdapter :
                         onSeeMoreClicked?.invoke()
                     }
                 }
-                ViewHolder(imageView)
+                SeeMoreViewHolder(imageView)
             }
 
             NORMAL_ITEM_TYPE -> {
-                ViewHolder(
+                PrimaryCategoryViewHolder(
                     PrimaryCategoryCardView(parent.context).apply {
                         layoutParams =
                             FrameLayout.LayoutParams(layoutParams.width, layoutParams.height)
@@ -94,14 +98,43 @@ private class PrimaryCategoriesAdapter :
         return NORMAL_ITEM_TYPE
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
+        when (holder.itemViewType) {
+            LAST_ITEM_TYPE -> {
+            }
+            NORMAL_ITEM_TYPE -> {
+//                (holder as PrimaryCategoryViewHolder).thumbnail = "item.categoryThumbnailUrl"
+                (holder as PrimaryCategoryViewHolder).title.text = item.title
+//                item.onClick.let { onClick ->
+//                    (holder).container.setOnClickListener {
+//                        onClick?.invoke()
+//                    }
+//                }
+
+            }
+            else -> {
+                throw IllegalStateException("no such type")
+            }
+        }
 //            holder.container.setOnClickListener { item.listener(item.id) }
 //            holder.titleTextView.text = item.title
 //            holder.subtitleTextView.text = item.subtitle
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    private class SeeMoreViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+//            val container: LinearLayout = view.itemContainer
+//            val titleTextView: TextView = view.title
+//            val subtitleTextView: TextView = view.subtitle
+    }
+
+    private class PrimaryCategoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+
+        var title = view.findViewById<TextView>(R.id.category_title)
+        var thumbnail = view.findViewById<ImageView>(R.id.category_thumbnail)
+        var container = view.findViewById<MaterialCardView>(R.id.category_container)
+
 //            val container: LinearLayout = view.itemContainer
 //            val titleTextView: TextView = view.title
 //            val subtitleTextView: TextView = view.subtitle
