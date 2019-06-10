@@ -1,1 +1,1 @@
-include ':app', ':sugar', ':SugarPlayground'
+include ':App', ':SugarKit', ':SugarPlayground', ':PresentationLayer'

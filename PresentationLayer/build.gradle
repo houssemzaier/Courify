@@ -1,18 +1,19 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
+
     defaultConfig {
-        applicationId "com.bravedroid.sugarplayground"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
     }
 
     buildTypes {
@@ -21,26 +22,47 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
     dataBinding {
         enabled = true
     }
-
 }
+
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+
+    //platform
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin_version}"
+
+    //Android Core
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.core:core-ktx:1.0.2'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    //navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:${Versions.navigation_component}"
+    implementation "androidx.navigation:navigation-ui-ktx:${Versions.navigation_component}"
 
     //UI
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0'
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    //Glide
+    implementation Dependencies.glide
+    kapt Dependencies.glide_compiler
+
+    //logging
+    implementation "com.jakewharton.timber:timber:${Versions.timber}"
+
+    //testing
+    testImplementation "junit:junit:${Versions.junit}"
+    androidTestImplementation "androidx.test:runner:${Versions.android_test_runner}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${Versions.espresso_core}"
+
     implementation project(path: ':SugarKit')
 }
