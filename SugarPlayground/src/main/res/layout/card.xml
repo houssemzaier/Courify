@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.bravedroid.sugar.CategoryCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:imageUrl="https://www.aljazeera.net/File/GetImageCustom/1df46053-996e-438e-b4b6-1ce1f95be077/1520/856"
+        app:titleText="OK">
+
+    </com.bravedroid.sugar.CategoryCardView>
+</LinearLayout>

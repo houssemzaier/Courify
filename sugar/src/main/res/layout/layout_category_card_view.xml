@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:layout_gravity="center"
+    tools:layout_height="@dimen/category_card_height"
+    tools:layout_width="@dimen/category_card_width"
+    tools:parentTag="com.google.android.material.card.MaterialCardView">
+
+    <ImageView
+        android:id="@+id/thumbnail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
+        android:scaleType="fitXY"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/box_categoriedu_jour" />
+
+    <TextView
+        android:id="@+id/item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="sans-serif-medium"
+        android:text="YouGa"
+        android:textColor="#F1F5F5"
+        android:textSize="18sp"
+        android:textStyle="normal"
+        tools:text="Yoga" />
+</merge>
