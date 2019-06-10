@@ -30,5 +30,5 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/layout_category_card_view" />
+        tools:listitem="@layout/layout_primary_category_card_view" />
 </merge>

@@ -16,7 +16,7 @@ import com.google.android.material.card.MaterialCardView
 class CategoryCardView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
     MaterialCardView(context, attrs) {
     init {
-        LayoutInflater.from(context).inflate(R.layout.layout_category_card_view, this)
+        LayoutInflater.from(context).inflate(R.layout.layout_primary_category_card_view, this)
         val width = resources.getDimension(R.dimen.category_card_width).toInt()
         val height = resources.getDimension(R.dimen.category_card_height).toInt()
         layoutParams = LayoutParams(width, height)
@@ -47,6 +47,6 @@ class CategoryCardView @JvmOverloads constructor(context: Context, attrs: Attrib
             )
             .into(imageThumbnail)
 
-        findViewById<TextView>(R.id.item_title).text = titleText ?: "lol"
+        findViewById<TextView>(R.id.item_title).text = titleText ?: "Title".toUpperCase()
     }
 }
