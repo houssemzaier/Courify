@@ -12,7 +12,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        findViewById<PrimaryCategoryCarousel>(R.id.carousel).setCategories(primaryCategoryItems){
+        val primaryCategoryCarousel = findViewById<PrimaryCategoryCarousel>(R.id.carousel)
+        primaryCategoryCarousel.enableSeeMoreButton()
+        primaryCategoryCarousel.setCategories(primaryCategoryItems) {
             Log.d("DEBG", "see more !")
         }
     }

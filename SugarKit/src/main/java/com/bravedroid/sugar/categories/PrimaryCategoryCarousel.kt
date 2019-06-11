@@ -45,13 +45,17 @@ class PrimaryCategoryCarousel @JvmOverloads constructor(
         categoriesAdapter.submitList(primaryCategoryItems)
         categoriesAdapter.onSeeMoreClicked = onSeeMoreClicked
     }
+
+    fun enableSeeMoreButton() {
+        categoriesAdapter.isSeeMoreButtonEnabled = true
+    }
 }
 
 
 private class PrimaryCategoriesAdapter :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var primaryCategoryItems = listOf<PrimaryCategoryItem>()
-
+    var isSeeMoreButtonEnabled: Boolean = false
 
     var onSeeMoreClicked: (() -> Unit)? = null
 
@@ -98,9 +102,19 @@ private class PrimaryCategoriesAdapter :
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (position == itemCount - 1) return LAST_ITEM_TYPE
+        if (isSeeMoreButtonEnabled) {
+            if (position == itemCount - 1) {
+                return LAST_ITEM_TYPE
+            }
+            return NORMAL_ITEM_TYPE
+        }
         return NORMAL_ITEM_TYPE
     }
+
+    override fun getItemCount(): Int =
+        if (isSeeMoreButtonEnabled) {
+            primaryCategoryItems.size + 1
+        } else primaryCategoryItems.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder.itemViewType) {
@@ -123,7 +137,6 @@ private class PrimaryCategoriesAdapter :
         }
     }
 
-    override fun getItemCount(): Int = primaryCategoryItems.size + 1
 
     fun submitList(primaryCategoryItems: List<PrimaryCategoryItem>) {
         this.primaryCategoryItems = primaryCategoryItems
@@ -134,9 +147,9 @@ private class PrimaryCategoriesAdapter :
 
 
     private class SeeMoreViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-      //   val container: LinearLayout = view.itemContainer
-      //   val titleTextView: TextView = view.title
-      //   val subtitleTextView: TextView = view.subtitle
+        //   val container: LinearLayout = view.itemContainer
+        //   val titleTextView: TextView = view.title
+        //   val subtitleTextView: TextView = view.subtitle
     }
 
     private class PrimaryCategoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
