@@ -13,8 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:clickable="true"
-        android:focusable="true"
         android:scaleType="fitXY"
         tools:ignore="ContentDescription"
         tools:src="@drawable/box_categoriedu_jour" />

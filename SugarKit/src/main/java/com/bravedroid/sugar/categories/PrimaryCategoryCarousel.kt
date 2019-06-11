@@ -42,16 +42,17 @@ class PrimaryCategoryCarousel @JvmOverloads constructor(
         primaryCategoryItems: List<PrimaryCategoryItem>,
         onSeeMoreClicked: (() -> Unit)? = null
     ) {
-        categoriesAdapter.submitList(primaryCategoryItems.toMutableList())
+        categoriesAdapter.submitList(primaryCategoryItems)
         categoriesAdapter.onSeeMoreClicked = onSeeMoreClicked
     }
 }
 
 
 private class PrimaryCategoriesAdapter :
-    ListAdapter<PrimaryCategoryItem, RecyclerView.ViewHolder>(
-        ItemDiff
-    ) {
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private var primaryCategoryItems = listOf<PrimaryCategoryItem>()
+
+
     var onSeeMoreClicked: (() -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -76,20 +77,23 @@ private class PrimaryCategoriesAdapter :
 
             NORMAL_ITEM_TYPE -> {
                 PrimaryCategoryViewHolder(
-                    PrimaryCategoryCardView(parent.context).apply {
-                        layoutParams =
-                            FrameLayout.LayoutParams(layoutParams.width, layoutParams.height)
-                                .also {
-                                    it.rightMargin =
-                                        resources.getDimensionPixelSize(R.dimen.primary_categories_margin)
-                                    it.topMargin =
-                                        resources.getDimensionPixelSize(R.dimen.primary_categories_margin)
-                                }
-                    }
+                    PrimaryCategoryCardView(parent.context)
+                        .apply {
+                            layoutParams =
+                                FrameLayout.LayoutParams(layoutParams.width, layoutParams.height)
+                                    .also {
+                                        it.rightMargin =
+                                            resources.getDimensionPixelSize(R.dimen.primary_categories_margin)
+                                        it.topMargin =
+                                            resources.getDimensionPixelSize(R.dimen.primary_categories_margin)
+                                    }
+                        }
 
                 )
             }
-            else -> throw IllegalStateException("no such type")
+            else -> {
+                throw IllegalStateException("no such type")
+            }
         }
     }
 
@@ -99,33 +103,40 @@ private class PrimaryCategoriesAdapter :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val item = getItem(position)
         when (holder.itemViewType) {
             LAST_ITEM_TYPE -> {
             }
             NORMAL_ITEM_TYPE -> {
-//                (holder as PrimaryCategoryViewHolder).thumbnail = "item.categoryThumbnailUrl"
-                (holder as PrimaryCategoryViewHolder).title.text = item.title
-//                item.onClick.let { onClick ->
-//                    (holder).container.setOnClickListener {
-//                        onClick?.invoke()
-//                    }
-//                }
+                val item = getItem(position)
+                holder as PrimaryCategoryViewHolder
+                holder.title.text = item.title
+                if (item.categoryThumbnailUrl != null)
+                    holder.container.loadImageUrl(item.categoryThumbnailUrl)
 
+                holder.container.setOnClickListener {
+                    item.onClick?.invoke()
+                }
             }
             else -> {
                 throw IllegalStateException("no such type")
             }
         }
-//            holder.container.setOnClickListener { item.listener(item.id) }
-//            holder.titleTextView.text = item.title
-//            holder.subtitleTextView.text = item.subtitle
     }
 
+    override fun getItemCount(): Int = primaryCategoryItems.size + 1
+
+    fun submitList(primaryCategoryItems: List<PrimaryCategoryItem>) {
+        this.primaryCategoryItems = primaryCategoryItems
+        notifyDataSetChanged()
+    }
+
+    fun getItem(position: Int): PrimaryCategoryItem = primaryCategoryItems[position]
+
+
     private class SeeMoreViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-//            val container: LinearLayout = view.itemContainer
-//            val titleTextView: TextView = view.title
-//            val subtitleTextView: TextView = view.subtitle
+      //   val container: LinearLayout = view.itemContainer
+      //   val titleTextView: TextView = view.title
+      //   val subtitleTextView: TextView = view.subtitle
     }
 
     private class PrimaryCategoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -133,26 +144,12 @@ private class PrimaryCategoriesAdapter :
 
         var title = view.findViewById<TextView>(R.id.category_title)
         var thumbnail = view.findViewById<ImageView>(R.id.category_thumbnail)
-        var container = view.findViewById<MaterialCardView>(R.id.category_container)
+        var container = view.findViewById<PrimaryCategoryCardView>(R.id.category_container)
 
 //            val container: LinearLayout = view.itemContainer
 //            val titleTextView: TextView = view.title
 //            val subtitleTextView: TextView = view.subtitle
     }
 
-    private object ItemDiff : DiffUtil.ItemCallback<PrimaryCategoryItem>() {
-        override fun areItemsTheSame(
-            oldItemPrimary: PrimaryCategoryItem,
-            newItemPrimary: PrimaryCategoryItem
-        ): Boolean {
-            return oldItemPrimary.id == newItemPrimary.id
-        }
 
-        override fun areContentsTheSame(
-            oldItemPrimary: PrimaryCategoryItem,
-            newItemPrimary: PrimaryCategoryItem
-        ): Boolean {
-            return oldItemPrimary == newItemPrimary
-        }
-    }
 }

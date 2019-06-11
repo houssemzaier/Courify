@@ -19,7 +19,7 @@ class PrimaryCategoryCardView
     context: Context,
     attrs: AttributeSet? = null
 ) : MaterialCardView(context, attrs) {
-    init {
+     init {
         LayoutInflater.from(context).inflate(R.layout.layout_primary_category_card_view, this)
         val width = resources.getDimension(R.dimen.category_card_width).toInt()
         val height = resources.getDimension(R.dimen.category_card_height).toInt()
@@ -31,7 +31,8 @@ class PrimaryCategoryCardView
         val imageThumbnail = findViewById<ImageView>(R.id.category_thumbnail)
         // OK//   imageThumbnail.setImageDrawable(resources.getDrawable(R.drawable.box_categoriedu_jour, null))
 
-        val attributes = context.obtainStyledAttributes(attrs,
+        val attributes = context.obtainStyledAttributes(
+            attrs,
             R.styleable.PrimaryCategoryCardView
         )
         val imageUrl = attributes.getString(R.styleable.PrimaryCategoryCardView_imageUrl)
@@ -53,5 +54,21 @@ class PrimaryCategoryCardView
             .into(imageThumbnail)
 
         findViewById<TextView>(R.id.category_title).text = titleText ?: "Title".toUpperCase()
+        id = R.id.category_container
+    }
+
+    fun loadImageUrl(url: String) {
+        val imageThumbnail = findViewById<ImageView>(R.id.category_thumbnail)
+        Glide.with(context)
+            .load(url).apply(
+                RequestOptions()
+                    .override(
+                        resources.getDimensionPixelSize(R.dimen.category_card_width),
+                        resources.getDimensionPixelSize(R.dimen.category_card_height)
+                    )
+                    .placeholder(ColorDrawable(Color.GRAY))
+            )
+            .into(imageThumbnail)
+
     }
 }
