@@ -65,13 +65,6 @@ private class PrimaryCategoriesAdapter :
                 val imageView = LayoutInflater.from(parent.context)
                     .inflate(R.layout.layout_primary_category_more, parent, false)
                 imageView.apply {
-                    layoutParams = FrameLayout.LayoutParams(layoutParams.width, layoutParams.height)
-                        .also {
-                            it.rightMargin =
-                                resources.getDimensionPixelSize(R.dimen.primary_categories_margin)
-                            it.topMargin =
-                                resources.getDimensionPixelSize(R.dimen.primary_categories_margin)
-                        }
                     setOnClickListener {
                         onSeeMoreClicked?.invoke()
                     }

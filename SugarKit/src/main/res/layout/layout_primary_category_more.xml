@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="60dp"
     android:layout_height="80dp"
+    android:layout_marginTop="@dimen/primary_categories_margin"
+    android:layout_marginRight="@dimen/primary_categories_margin"
     android:layout_gravity="center">
 
     <ImageView
